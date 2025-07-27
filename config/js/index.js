@@ -99,26 +99,27 @@ function renderUsers(users) {
         return;
     }
 
-    usersTableBody.innerHTML = users.map(user => `
-        <tr class="hover:bg-gray-50">
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.id}</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm font-medium text-gray-900">${user.nome}</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatPhoneNumber(user.telefone)}</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
-                    ${user.status ? 'Ativo' : 'Inativo'}
-                </span>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <button onclick="openEditUser Modal(${user.id})" class="text-blue-600 hover:text-blue-900 mr-3">Editar</button>
-                <button onclick="toggleUser Status(${user.id}, ${user.status})" class="${user.status ? 'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'}">
-                    ${user.status ? 'Desativar' : 'Ativar'}
-                </button>
-            </td>
-        </tr>
-    `).join('');
+      usersTableBody.innerHTML = users.map(user => `
+          <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.id}</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm font-medium text-gray-900">${user.nome}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatPhoneNumber(user.telefone)}</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                      ${user.status ? 'Ativo' : 'Inativo'}
+                  </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <button onclick="openEditUserModal(${user.id})" class="text-blue-600 hover:text-blue-900 mr-3">Editar</button>
+                  <button onclick="toggleUserStatus(${user.id}, ${user.status})" class="${user.status ? 'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'}">
+                      ${user.status ? 'Desativar' : 'Ativar'}
+                  </button>
+              </td>
+          </tr>
+      `).join('');
+
 }
 
 
