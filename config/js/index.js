@@ -54,6 +54,8 @@ function formatPhoneNumber(phone) {
     return 'Número inválido: deve ter 11 dígitos'; // Retorna mensagem de erro se não corresponder ao formato
 }
 
+const usuario = JSON.parse(localStorage.getItem('usuario'));
+if (!usuario) window.location.href = '../login.html';
 
 
 
