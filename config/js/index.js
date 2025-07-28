@@ -125,12 +125,12 @@ usersTableBody.innerHTML = users.map(user => `
                 ${user.status ? 'Ativo' : 'Inativo'}
             </span>
         </td>
-        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-            <button onclick="openEditUserModal(${user.id})" class="text-blue-600 hover:text-blue-900 mr-3">Editar</button>
-            <button onclick="toggleUserStatus(${user.id}, ${user.status})" class="${user.status ? 'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'}">
+        <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+            <button onclick="openEditUserModal(${user.id})" class="text-blue-600 text-center hover:text-blue-900 mr-3">Editar</button>
+            <button onclick="toggleUserStatus(${user.id}, ${user.status})" class="  text-center  ${user.status ?  'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'}">
                 ${user.status ? 'Desativar' : 'Ativar'}
             </button>
-            <button onclick="deleteUser(${user.id})" class="text-red-600 hover:text-red-900 ml-3">
+            <button onclick="deleteUser(${user.id})" class="text-red-600 text-center hover:text-red-900 ml-3">
                Excluir
             </button>
         </td>
