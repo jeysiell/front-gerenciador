@@ -187,7 +187,7 @@ editUserForm.addEventListener("submit", async (e) => {
   };
 
   try {
-    await axios.patch(`${API_BASE_URL}/usuarios/${userId}/status`, {
+    await axios.put(`${API_BASE_URL}/usuarios/${userId}/status`, {
       status: userData.status,
     });
 
