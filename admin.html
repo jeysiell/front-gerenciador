@@ -34,6 +34,20 @@
           <h1 class="text-3xl font-bold text-gray-800">Gestão de Usuários</h1>
           <p class="text-gray-600">Gerencie os usuários do sistema</p>
         </header>
+          <!-- Perfil do Usuário -->
+          <div id="perfilUsuario" class="mb-6 p-4 bg-white rounded shadow text-gray-700">
+            <h2 class="text-xl font-semibold mb-2">Perfil do Usuário</h2>
+            <p><strong>ID:</strong> <span id="perfilId"></span></p>
+            <p><strong>Nome:</strong> <span id="perfilNome"></span></p>
+            <p><strong>Telefone:</strong> <span id="perfilTelefone"></span></p>
+            <p><strong>Status:</strong> <span id="perfilStatus"></span></p>
+            <button
+              id="logoutBtn"
+              class="mt-4 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+            >
+              Sair
+            </button>
+          </div>
 
         <!-- Main Content -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">

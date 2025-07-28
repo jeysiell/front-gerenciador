@@ -273,3 +273,22 @@ searchInput.addEventListener("input", (e) => {
 document.addEventListener("DOMContentLoaded", () => {
   fetchUsers();
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+  if (usuario) {
+    document.getElementById("perfilId").textContent = usuario.id;
+    document.getElementById("perfilNome").textContent = usuario.nome;
+    document.getElementById("perfilTelefone").textContent = formatPhoneNumber(usuario.telefone);
+    document.getElementById("perfilStatus").textContent = usuario.status ? "Ativo" : "Inativo";
+  }
+
+  // Botão de logout
+  const logoutBtn = document.getElementById("logoutBtn");
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("usuario");
+    window.location.href = "index"; // Redireciona para login
+  });
+});
