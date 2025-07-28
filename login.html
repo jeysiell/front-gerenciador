@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Gerenciador</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
+    <h2 class="text-2xl font-bold text-center mb-6">Login do Sistema</h2>
+    <form id="loginForm" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium">Telefone</label>
+        <input type="text" id="telefone" name="telefone" required
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Senha</label>
+        <input type="password" id="senha" name="senha" required
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+      <button type="submit"
+        class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+        Entrar
+      </button>
+    </form>
+    <p id="erro" class="text-red-600 text-center mt-4 hidden"></p>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const telefone = document.getElementById('telefone').value;
+      const senha = document.getElementById('senha').value;
+
+      try {
+        const response = await fetch('https://api-gerenciador-qqy9.onrender.com/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ telefone, senha })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          localStorage.setItem('usuario', JSON.stringify(data));
+          window.location.href = 'front-gerenciador/';
+        } else {
+          document.getElementById('erro').textContent = data.error || 'Erro ao fazer login';
+          document.getElementById('erro').classList.remove('hidden');
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById('erro').textContent = 'Erro de conexão com o servidor';
+        document.getElementById('erro').classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
