@@ -54,6 +54,21 @@ function formatPhoneNumber(phone) {
     return 'Número inválido: deve ter 11 dígitos'; // Retorna mensagem de erro se não corresponder ao formato
 }
 
+// Deletar usuário
+window.deleteUser = async (userId) => {
+  if (!confirm("Tem certeza que deseja excluir este usuário?")) {
+    return;
+  }
+
+  try {
+    await axios.delete(`${API_BASE_URL}/usuarios/${userId}`);
+    alert("Usuário excluído com sucesso!");
+    fetchUsers(); // Atualiza a lista de usuários após exclusão
+  } catch (error) {
+    console.error("Erro ao excluir usuário:", error);
+    alert("Erro ao excluir usuário");
+  }
+};
 
 
 // Fetch all users
