@@ -104,7 +104,7 @@
 
         if (response.ok) {
           localStorage.setItem('usuario', JSON.stringify(data));
-          window.location.href = 'index';
+          window.location.href = 'admin';
         } else {
           erro.textContent = data.error || 'Erro ao fazer login';
           erro.classList.remove('hidden');
