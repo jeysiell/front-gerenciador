@@ -8,17 +8,21 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
   <div class="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
-    <h2 id="formTitle" class="text-2xl font-bold text-center mb-6">Login do Sistema</h2>
-    
-    <form id="authForm" class="space-y-4">
+    <div class="flex justify-around mb-6">
+      <button id="btnLogin" class="font-bold text-blue-600 border-b-2 border-blue-600 pb-1">Login</button>
+      <button id="btnCadastro" class="text-gray-500 hover:text-blue-600">Cadastro</button>
+    </div>
+
+    <!-- Formulário de Login -->
+    <form id="loginForm" class="space-y-4">
       <div>
         <label class="block text-sm font-medium">Telefone</label>
-        <input type="text" id="telefone" name="telefone" required
+        <input type="text" id="loginTelefone" name="telefone" required
           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
       </div>
       <div>
         <label class="block text-sm font-medium">Senha</label>
-        <input type="password" id="senha" name="senha" required
+        <input type="password" id="loginSenha" name="senha" required
           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
       </div>
       <button type="submit"
@@ -27,52 +31,70 @@
       </button>
     </form>
 
-    <p id="erro" class="text-red-600 text-center mt-4 hidden"></p>
+    <!-- Formulário de Cadastro -->
+    <form id="cadastroForm" class="space-y-4 hidden">
+      <div>
+        <label class="block text-sm font-medium">Nome</label>
+        <input type="text" id="cadastroNome" name="nome" required
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Telefone</label>
+        <input type="text" id="cadastroTelefone" name="telefone" required
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Senha</label>
+        <input type="password" id="cadastroSenha" name="senha" required
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+      </div>
+      <button type="submit"
+        class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition duration-300">
+        Criar Conta
+      </button>
+    </form>
 
-    <div class="mt-6 text-center">
-      <p id="toggleText">Ainda não tem uma conta?</p>
-      <button id="toggleBtn" class="text-blue-600 font-semibold hover:underline">Criar conta</button>
-    </div>
+    <p id="erro" class="text-red-600 text-center mt-4 hidden"></p>
+    <p id="sucesso" class="text-green-600 text-center mt-4 hidden"></p>
   </div>
 
   <script>
-    let modoCadastro = false;
+    const btnLogin = document.getElementById('btnLogin');
+    const btnCadastro = document.getElementById('btnCadastro');
+    const loginForm = document.getElementById('loginForm');
+    const cadastroForm = document.getElementById('cadastroForm');
+    const erro = document.getElementById('erro');
+    const sucesso = document.getElementById('sucesso');
 
-    const form = document.getElementById('authForm');
-    const toggleBtn = document.getElementById('toggleBtn');
-    const formTitle = document.getElementById('formTitle');
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const erroEl = document.getElementById('erro');
-    const toggleText = document.getElementById('toggleText');
-
-    toggleBtn.addEventListener('click', () => {
-      modoCadastro = !modoCadastro;
-
-      if (modoCadastro) {
-        formTitle.textContent = 'Criar Conta';
-        submitBtn.textContent = 'Cadastrar';
-        toggleBtn.textContent = 'Fazer login';
-        toggleText.textContent = 'Já tem uma conta?';
-      } else {
-        formTitle.textContent = 'Login do Sistema';
-        submitBtn.textContent = 'Entrar';
-        toggleBtn.textContent = 'Criar conta';
-        toggleText.textContent = 'Ainda não tem uma conta?';
-      }
-
-      erroEl.classList.add('hidden');
+    btnLogin.addEventListener('click', () => {
+      loginForm.classList.remove('hidden');
+      cadastroForm.classList.add('hidden');
+      btnLogin.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+      btnCadastro.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+      erro.classList.add('hidden');
+      sucesso.classList.add('hidden');
     });
 
-    form.addEventListener('submit', async function(e) {
+    btnCadastro.addEventListener('click', () => {
+      loginForm.classList.add('hidden');
+      cadastroForm.classList.remove('hidden');
+      btnCadastro.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+      btnLogin.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+      erro.classList.add('hidden');
+      sucesso.classList.add('hidden');
+    });
+
+    // Login
+    loginForm.addEventListener('submit', async function(e) {
       e.preventDefault();
+      erro.classList.add('hidden');
+      sucesso.classList.add('hidden');
 
-      const telefone = document.getElementById('telefone').value;
-      const senha = document.getElementById('senha').value;
-
-      const rota = modoCadastro ? 'https://api-gerenciador-qqy9.onrender.com/usuarios' : 'https://api-gerenciador-qqy9.onrender.com/login';
+      const telefone = document.getElementById('loginTelefone').value;
+      const senha = document.getElementById('loginSenha').value;
 
       try {
-        const response = await fetch(rota, {
+        const response = await fetch('https://api-gerenciador-qqy9.onrender.com/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ telefone, senha })
@@ -82,15 +104,47 @@
 
         if (response.ok) {
           localStorage.setItem('usuario', JSON.stringify(data));
-          window.location.href = 'admin';
+          window.location.href = 'index';
         } else {
-          erroEl.textContent = data.error || (modoCadastro ? 'Erro ao cadastrar' : 'Erro ao fazer login');
-          erroEl.classList.remove('hidden');
+          erro.textContent = data.error || 'Erro ao fazer login';
+          erro.classList.remove('hidden');
         }
       } catch (err) {
-        console.error(err);
-        erroEl.textContent = 'Erro de conexão com o servidor';
-        erroEl.classList.remove('hidden');
+        erro.textContent = 'Erro de conexão com o servidor';
+        erro.classList.remove('hidden');
+      }
+    });
+
+    // Cadastro
+    cadastroForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      erro.classList.add('hidden');
+      sucesso.classList.add('hidden');
+
+      const nome = document.getElementById('cadastroNome').value;
+      const telefone = document.getElementById('cadastroTelefone').value;
+      const senha = document.getElementById('cadastroSenha').value;
+
+      try {
+        const response = await fetch('https://api-gerenciador-qqy9.onrender.com/usuarios', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nome, telefone, senha })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          sucesso.textContent = 'Conta criada com sucesso! Faça login.';
+          sucesso.classList.remove('hidden');
+          cadastroForm.reset();
+        } else {
+          erro.textContent = data.error || 'Erro ao criar conta';
+          erro.classList.remove('hidden');
+        }
+      } catch (err) {
+        erro.textContent = 'Erro de conexão com o servidor';
+        erro.classList.remove('hidden');
       }
     });
   </script>
