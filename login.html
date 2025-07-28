@@ -46,7 +46,7 @@
 
         if (response.ok) {
           localStorage.setItem('usuario', JSON.stringify(data));
-          window.location.href = 'front-gerenciador/';
+          window.location.href = 'https://jeysiell.github.io/front-gerenciador';
         } else {
           document.getElementById('erro').textContent = data.error || 'Erro ao fazer login';
           document.getElementById('erro').classList.remove('hidden');
