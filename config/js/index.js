@@ -115,6 +115,9 @@ usersTableBody.innerHTML = users.map(user => `
             <button onclick="toggleUserStatus(${user.id}, ${user.status})" class="${user.status ? 'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'}">
                 ${user.status ? 'Desativar' : 'Ativar'}
             </button>
+            <button onclick="deleteUser(${user.id})" class="text-red-600 hover:text-red-900 ml-3">
+               Excluir
+            </button>
         </td>
     </tr>
 `).join('');
