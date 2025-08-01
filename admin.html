@@ -26,6 +26,7 @@
       }
     </script>
   </head>
+
   <body class="bg-gray-100">
     <div class="container mx-auto px-4 py-8">
       <div class="max-w-6xl mx-auto">
@@ -34,28 +35,31 @@
           <h1 class="text-3xl font-bold text-gray-800">Gestão de Usuários</h1>
           <p class="text-gray-600">Gerencie os usuários do sistema</p>
           <!-- Avatar do Usuário -->
-          <div class="flex justify-end items-center mb-4">
-            <div class="relative group">
-              <div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg cursor-pointer">
-                <span id="avatarInicial">U</span>
-              </div>
-              <div class="absolute right-0 mt-2 w-64 bg-white rounded shadow-lg p-4 hidden group-hover:block z-10 text-sm text-gray-700">
-                <p><strong>ID:</strong> <span id="avatarId"></span></p>
-                <p><strong>Nome:</strong> <span id="avatarNome"></span></p>
-                <p><strong>Telefone:</strong> <span id="avatarTelefone"></span></p>
-                <p><strong>Status:</strong> <span id="avatarStatus"></span></p>
-                <button
-                  id="avatarLogoutBtn"
-                  class="mt-3 px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-xs"
-                >
-                  Sair
-                </button>
-              </div>
+          <div id="avatarContainer" class="relative group flex justify-end items-center mb-4">
+            <div
+              id="avatarBtn"
+              class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg cursor-pointer"
+            >
+              <span id="avatarInicial">U</span>
+            </div>
+            <div
+              id="avatarMenu"
+              class="absolute right-0 top-full mt-2 w-64 bg-white rounded shadow-lg p-4 hidden group-hover:block z-10 text-sm text-gray-700"
+            >
+              <p><strong>ID:</strong> <span id="avatarId"></span></p>
+              <p><strong>Nome:</strong> <span id="avatarNome"></span></p>
+              <p><strong>Telefone:</strong> <span id="avatarTelefone"></span></p>
+              <p><strong>Status:</strong> <span id="avatarStatus"></span></p>
+              <button
+                id="avatarLogoutBtn"
+                class="mt-3 px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-xs"
+              >
+                Sair
+              </button>
             </div>
           </div>
           
         </header>
-
 
         <!-- Main Content -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">

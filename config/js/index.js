@@ -38,20 +38,22 @@ addUserTabBtn.addEventListener("click", () => {
 });
 
 function formatPhoneNumber(phone) {
-    // Remove caracteres não numéricos
-    const cleaned = ('' + phone).replace(/\D/g, '');
+  // Remove caracteres não numéricos
+  const cleaned = ("" + phone).replace(/\D/g, "");
 
-    // Verifica se o número tem exatamente 11 dígitos
-    if (cleaned.length === 11) {
-        // Verifica se o código de área é 86
-        if (cleaned.startsWith('86')) {
-            return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2, 7)}-${cleaned.slice(7)}`;
-        } else {
-            return 'Número inválido: deve começar com 86';
-        }
+  // Verifica se o número tem exatamente 11 dígitos
+  if (cleaned.length === 11) {
+    // Verifica se o código de área é 86
+    if (cleaned.startsWith("86")) {
+      return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2, 7)}-${cleaned.slice(
+        7
+      )}`;
+    } else {
+      return "Número inválido: deve começar com 86";
     }
-    
-    return 'Número inválido: deve ter 11 dígitos'; // Retorna mensagem de erro se não corresponder ao formato
+  }
+
+  return "Número inválido: deve ter 11 dígitos"; // Retorna mensagem de erro se não corresponder ao formato
 }
 
 // Deletar usuário
@@ -69,7 +71,6 @@ window.deleteUser = async (userId) => {
     alert("Erro ao excluir usuário");
   }
 };
-
 
 // Fetch all users
 async function fetchUsers(searchTerm = "") {
@@ -102,44 +103,63 @@ async function fetchUsers(searchTerm = "") {
 
 // Render users table
 function renderUsers(users) {
-    if (users.length === 0) {
-        usersTableBody.innerHTML = `
+  if (users.length === 0) {
+    usersTableBody.innerHTML = `
             <tr>
                 <td colspan="5" class="px-6 py-4 text-center text-gray-500">
                     Nenhum usuário encontrado
                 </td>
             </tr>
         `;
-        return;
-    }
+    return;
+  }
 
-usersTableBody.innerHTML = users.map(user => `
+  usersTableBody.innerHTML = users
+    .map(
+      (user) => `
     <tr class="hover:bg-gray-50">
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.id}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${
+          user.id
+        }</td>
         <td class="px-6 py-4 whitespace-nowrap">
             <div class="text-sm font-medium text-gray-900">${user.nome}</div>
         </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatPhoneNumber(user.telefone)}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatPhoneNumber(
+          user.telefone
+        )}</td>
         <td class="px-6 py-4 whitespace-nowrap">
-            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
-                ${user.status ? 'Ativo' : 'Inativo'}
+            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+              user.status
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            }">
+                ${user.status ? "Ativo" : "Inativo"}
             </span>
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-            <button onclick="openEditUserModal(${user.id})" class="text-blue-600 text-center hover:text-blue-900 mr-3">Editar</button>
-            <button onclick="toggleUserStatus(${user.id}, ${user.status})" class="  text-center  ${user.status ?  'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'}">
-                ${user.status ? 'Desativar' : 'Ativar'}
+            <button onclick="openEditUserModal(${
+              user.id
+            })" class="text-blue-600 text-center hover:text-blue-900 mr-3">Editar</button>
+            <button onclick="toggleUserStatus(${user.id}, ${
+        user.status
+      })" class="  text-center  ${
+        user.status
+          ? "text-red-600 hover:text-red-900"
+          : "text-green-600 hover:text-green-900"
+      }">
+                ${user.status ? "Desativar" : "Ativar"}
             </button>
-            <button onclick="deleteUser(${user.id})" class="text-red-600 text-center hover:text-red-900 ml-3">
+            <button onclick="deleteUser(${
+              user.id
+            })" class="text-red-600 text-center hover:text-red-900 ml-3">
                Excluir
             </button>
         </td>
     </tr>
-`).join('');
-
-
+`
+    )
+    .join("");
 }
-
 
 // Add new user
 addUserForm.addEventListener("submit", async (e) => {
@@ -274,34 +294,79 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchUsers();
 });
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   if (usuario) {
-    // Perfil padrão
-    document.getElementById("perfilId").textContent = usuario.id;
-    document.getElementById("perfilNome").textContent = usuario.nome;
-    document.getElementById("perfilTelefone").textContent = formatPhoneNumber(usuario.telefone);
-    document.getElementById("perfilStatus").textContent = usuario.status ? "Ativo" : "Inativo";
-
     // Avatar
-    document.getElementById("avatarId").textContent = usuario.id;
-    document.getElementById("avatarNome").textContent = usuario.nome;
-    document.getElementById("avatarTelefone").textContent = formatPhoneNumber(usuario.telefone);
-    document.getElementById("avatarStatus").textContent = usuario.status ? "Ativo" : "Inativo";
-    document.getElementById("avatarInicial").textContent = usuario.nome?.charAt(0).toUpperCase() || "U";
+    const avatarId = document.getElementById("avatarId");
+    const avatarNome = document.getElementById("avatarNome");
+    const avatarTelefone = document.getElementById("avatarTelefone");
+    const avatarStatus = document.getElementById("avatarStatus");
+    const avatarInicial = document.getElementById("avatarInicial");
+
+    if (
+      avatarId &&
+      avatarNome &&
+      avatarTelefone &&
+      avatarStatus &&
+      avatarInicial
+    ) {
+      avatarId.textContent = usuario.id;
+      avatarNome.textContent = usuario.nome;
+      avatarTelefone.textContent = formatPhoneNumber(usuario.telefone);
+      avatarStatus.textContent = usuario.status ? "Ativo" : "Inativo";
+      avatarInicial.textContent = usuario.nome?.charAt(0).toUpperCase() || "U";
+    }
+
+    // Logout
+    const logoutBtn = document.getElementById("avatarLogoutBtn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("usuario");
+        window.location.href = "index";
+      });
+    }
   }
 
-  // Logout
-  document.getElementById("logoutBtn").addEventListener("click", () => {
-    localStorage.removeItem("usuario");
-    window.location.href = "index";
-  });
+  const avatarBtn = document.getElementById("avatarBtn");
+  const avatarMenu = document.getElementById("avatarMenu");
+  const avatarContainer = document.getElementById("avatarContainer");
 
-  document.getElementById("avatarLogoutBtn").addEventListener("click", () => {
-    localStorage.removeItem("usuario");
-    window.location.href = "index";
-  });
+  let avatarMenuFixed = false;
+
+  if (avatarBtn && avatarMenu && avatarContainer) {
+    // Clique: fixa ou solta o menu
+    avatarBtn.addEventListener("click", () => {
+      avatarMenuFixed = !avatarMenuFixed;
+      if (avatarMenuFixed) {
+        avatarMenu.classList.remove("hidden");
+      } else {
+        avatarMenu.classList.add("hidden");
+      }
+    });
+
+    // Clicar fora: fecha se estava fixo
+    document.addEventListener("click", (event) => {
+      if (avatarMenuFixed && !avatarContainer.contains(event.target)) {
+        avatarMenuFixed = false;
+        avatarMenu.classList.add("hidden");
+      }
+    });
+
+    // Hover: só mostra se não estiver fixo
+    avatarContainer.addEventListener("mouseenter", () => {
+      if (!avatarMenuFixed) avatarMenu.classList.remove("hidden");
+    });
+
+    avatarContainer.addEventListener("mouseleave", () => {
+      if (!avatarMenuFixed) avatarMenu.classList.add("hidden");
+    });
+  }
 });
 
+// Função para formatar telefone
+function formatPhoneNumber(phone) {
+  if (!phone) return "";
+  return phone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+}
