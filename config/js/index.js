@@ -279,16 +279,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   if (usuario) {
+    // Perfil padrão
     document.getElementById("perfilId").textContent = usuario.id;
     document.getElementById("perfilNome").textContent = usuario.nome;
     document.getElementById("perfilTelefone").textContent = formatPhoneNumber(usuario.telefone);
     document.getElementById("perfilStatus").textContent = usuario.status ? "Ativo" : "Inativo";
+
+    // Avatar
+    document.getElementById("avatarId").textContent = usuario.id;
+    document.getElementById("avatarNome").textContent = usuario.nome;
+    document.getElementById("avatarTelefone").textContent = formatPhoneNumber(usuario.telefone);
+    document.getElementById("avatarStatus").textContent = usuario.status ? "Ativo" : "Inativo";
+    document.getElementById("avatarInicial").textContent = usuario.nome?.charAt(0).toUpperCase() || "U";
   }
 
-  // Botão de logout
-  const logoutBtn = document.getElementById("logoutBtn");
-  logoutBtn.addEventListener("click", () => {
+  // Logout
+  document.getElementById("logoutBtn").addEventListener("click", () => {
     localStorage.removeItem("usuario");
-    window.location.href = "index"; // Redireciona para login
+    window.location.href = "index";
+  });
+
+  document.getElementById("avatarLogoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("usuario");
+    window.location.href = "index";
   });
 });
+
