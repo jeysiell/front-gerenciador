@@ -287,6 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const avatarTelefone = document.getElementById("avatarTelefone");
     const avatarStatus = document.getElementById("avatarStatus");
     const avatarInicial = document.getElementById("avatarInicial");
+    const avatarImagem = document.getElementById("avatarImagem");
 
     if (
       avatarId &&
@@ -300,6 +301,22 @@ document.addEventListener("DOMContentLoaded", () => {
       avatarTelefone.textContent = formatPhoneNumber(usuario.telefone);
       avatarStatus.textContent = usuario.status ? "Ativo" : "Inativo";
       avatarInicial.textContent = usuario.nome?.charAt(0).toUpperCase() || "U";
+    }
+
+    // Carrega imagem do perfil
+    if (avatarImagem) {
+      avatarImagem.src = `https://api-gerenciador-qqy9.onrender.com/perfis/${usuario.id}.png`;
+
+      avatarImagem.onload = () => {
+        avatarImagem.classList.remove("hidden");
+        avatarInicial.classList.add("hidden");
+      };
+
+      avatarImagem.onerror = () => {
+        avatarImagem.classList.add("hidden");
+        avatarInicial.textContent = usuario.nome?.charAt(0).toUpperCase() || "U";
+        avatarInicial.classList.remove("hidden");
+      };
     }
 
     // Logout
@@ -347,6 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
 
 // Função para formatar telefone
 function formatPhoneNumber(phone) {

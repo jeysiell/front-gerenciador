@@ -31,17 +31,18 @@
     <div class="container mx-auto px-4 py-8">
       <div class="max-w-6xl mx-auto">
         <!-- Header -->
-        <header class="mb-8">
-          <h1 class="text-3xl font-bold text-gray-800">Gestão de Usuários</h1>
-          <p class="text-gray-600">Gerencie os usuários do sistema</p>
+        <header class="mb-8 flex justify-between items-center">
+          <h1 class="text-3xl font-normal text-gray-800">Gerencie os usuários do sistema</h1>
           <!-- Avatar do Usuário -->
-          <div id="avatarContainer" class="relative group flex justify-end items-center mb-4">
-            <div
-              id="avatarBtn"
-              class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg cursor-pointer"
-            >
-              <span id="avatarInicial">U</span>
+          <div id="avatarContainer" class="relative group inline-flex items-center mb-4 w-12 cursor-pointer">
+
+            <div id="avatarBtn" class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 cursor-pointer relative">
+              <img id="avatarImagem" src="" alt="Avatar" class="w-full h-full object-cover absolute inset-0 hidden" />
+              <div id="avatarInicial" class="w-full h-full flex items-center justify-center text-white font-bold text-lg bg-primary absolute inset-0">
+                U
+              </div>
             </div>
+          
             <div
               id="avatarMenu"
               class="absolute right-0 top-full mt-2 w-64 bg-white rounded shadow-lg p-4 hidden group-hover:block z-10 text-sm text-gray-700"
@@ -58,6 +59,7 @@
               </button>
             </div>
           </div>
+
           
         </header>
 
