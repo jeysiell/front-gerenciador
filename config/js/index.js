@@ -105,61 +105,44 @@ async function fetchUsers(searchTerm = "") {
 function renderUsers(users) {
   if (users.length === 0) {
     usersTableBody.innerHTML = `
-            <tr>
-                <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                    Nenhum usuário encontrado
-                </td>
-            </tr>
-        `;
+      <tr>
+        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+          Nenhum usuário encontrado
+        </td>
+      </tr>
+    `;
     return;
   }
 
   usersTableBody.innerHTML = users
-    .map(
-      (user) => `
-    <tr class="hover:bg-gray-50">
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${
-          user.id
-        }</td>
-        <td class="px-6 py-4 whitespace-nowrap">
-            <div class="text-sm font-medium text-gray-900">${user.nome}</div>
+    .map(user => `
+      <tr class="hover:bg-gray-50">
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.id}</td>
+        <td class="px-6 py-4 whitespace-nowrap flex items-center space-x-3">
+        <img 
+          src="https://api-gerenciador-qqy9.onrender.com${user.fotoUrl.replace('.jpg', '.png')}" 
+          alt="Foto de ${user.nome}" 
+          class="w-10 h-10 rounded-full object-cover"
+          onerror="this.onerror=null;this.src='https://api-gerenciador-qqy9.onrender.com/perfis/default.png';"/>
+          <div class="text-sm font-medium text-gray-900">${user.nome}</div>
         </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatPhoneNumber(
-          user.telefone
-        )}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatPhoneNumber(user.telefone)}</td>
         <td class="px-6 py-4 whitespace-nowrap">
-            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-              user.status
-                ? "bg-green-100 text-green-800"
-                : "bg-red-100 text-red-800"
-            }">
-                ${user.status ? "Ativo" : "Inativo"}
-            </span>
+          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+            user.status ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+          }">${user.status ? "Ativo" : "Inativo"}</span>
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-            <button onclick="openEditUserModal(${
-              user.id
-            })" class="text-blue-600 text-center hover:text-blue-900 mr-3">Editar</button>
-            <button onclick="toggleUserStatus(${user.id}, ${
-        user.status
-      })" class="  text-center  ${
-        user.status
-          ? "text-red-600 hover:text-red-900"
-          : "text-green-600 hover:text-green-900"
-      }">
-                ${user.status ? "Desativar" : "Ativar"}
-            </button>
-            <button onclick="deleteUser(${
-              user.id
-            })" class="text-red-600 text-center hover:text-red-900 ml-3">
-               Excluir
-            </button>
+          <button onclick="openEditUserModal(${user.id})" class="text-blue-600 hover:text-blue-900 mr-3">Editar</button>
+          <button onclick="toggleUserStatus(${user.id}, ${user.status})" class="${
+            user.status ? "text-red-600 hover:text-red-900" : "text-green-600 hover:text-green-900"
+          }">${user.status ? "Desativar" : "Ativar"}</button>
+          <button onclick="deleteUser(${user.id})" class="text-red-600 hover:text-red-900 ml-3">Excluir</button>
         </td>
-    </tr>
-`
-    )
-    .join("");
+      </tr>
+    `).join("");
 }
+
 
 // Add new user
 addUserForm.addEventListener("submit", async (e) => {
